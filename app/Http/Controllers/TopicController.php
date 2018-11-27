@@ -8,6 +8,7 @@ use App\Post;
 use App\Topic;
 use App\Transformers\TopicTransformer;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
+use Symfony\Component\HttpFoundation\Response;
 
 class TopicController extends Controller
 {
@@ -65,5 +66,14 @@ class TopicController extends Controller
             ->parseIncludes(['user', 'posts', 'posts.user'])
             ->transformWith(new TopicTransformer)
             ->toArray();
+    }
+
+    public function destroy(Topic $topic)
+    {
+        $this->authorize('destroy', $topic);
+
+        $topic->delete();
+
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 }
