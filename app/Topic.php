@@ -11,6 +11,11 @@ class Topic extends Model
 
     protected $fillable = ['title'];
 
+//    public function getRouteKeyName()
+//    {
+//        return 'slug';
+//    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
